@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">First Compose App</string>
+    <string name="title_activity_birthday_card">BirthdayCardActivity</string>
+    <string name="happy_birthday_image">Happy Birthday Image</string>
+    <string name="title_activity_business_card">BusinessCard</string>
+    <string name="title_activity_vcard">VCardActivity</string>
+</resources>
