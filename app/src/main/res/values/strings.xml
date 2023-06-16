@@ -4,4 +4,7 @@
     <string name="happy_birthday_image">Happy Birthday Image</string>
     <string name="title_activity_business_card">BusinessCard</string>
     <string name="title_activity_vcard">VCardActivity</string>
+    <string name="title_activity_dice_roller">DiceRollerActivity</string>
+    <string name="title_activity_lemonade">LemondeActivity</string>
+    <string name="roll">Roll</string>
 </resources>
