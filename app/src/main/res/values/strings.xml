@@ -7,4 +7,7 @@
     <string name="title_activity_dice_roller">DiceRollerActivity</string>
     <string name="title_activity_lemonade">LemondeActivity</string>
     <string name="roll">Roll</string>
+    <string name="title_activity_calculator">CalculatorActivity</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_calculate_tip">CalculateTipActivity</string>
 </resources>

@@ -1,25 +1,25 @@
 package com.aliazaz.composeapp
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.aliazaz.composeapp.R
 import com.aliazaz.composeapp.ui.theme.FirstComposeAppTheme
 
 class LemonadeActivity : ComponentActivity() {
@@ -28,7 +28,7 @@ class LemonadeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FirstComposeAppTheme {
-                LemonadeApp()
+                ScaffoldComponent(modifier = Modifier)
             }
         }
     }
@@ -95,6 +95,40 @@ private val lemonadeMapping: (Int) -> Pair<Int, String> = {
         2 -> Pair(R.drawable.lemon_squeeze, "Keep tapping the lemon to squeeze it")
         3 -> Pair(R.drawable.lemon_drink, "Tap the lemonade to drink it")
         else -> Pair(R.drawable.lemon_restart, "Tap the empty glass to start again")
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ScaffoldComponent(
+    modifier: Modifier
+) {
+    Scaffold(modifier = modifier,
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    androidx.compose.material3.Text(
+                        text = "Lemonade",
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                colors = topAppBarColors(
+                    containerColor = androidx.compose.material3.MaterialTheme.colorScheme.primaryContainer,
+                    scrolledContainerColor = MaterialTheme.colorScheme.applyTonalElevation(
+                        backgroundColor = containerColor,
+                        elevation = TopAppBarSmallTokens.OnScrollContainerElevation
+                    ),
+                    navigationIconContentColor = androidx.compose.material3.MaterialTheme.colorScheme.onPrimaryContainer,
+                    titleContentColor = androidx.compose.material3.MaterialTheme.colorScheme.onPrimaryContainer,
+                    actionIconContentColor = androidx.compose.material3.MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            )
+
+        }, bottomBar = {
+
+        }
+    ) {
+        LemonadeApp()
     }
 }
 
