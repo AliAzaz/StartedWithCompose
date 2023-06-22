@@ -18,9 +18,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.aliazaz.composeapp.components.ScaffoldComponent
 import com.aliazaz.composeapp.ui.theme.FirstComposeAppTheme
 
 class LemonadeActivity : ComponentActivity() {
@@ -29,7 +31,9 @@ class LemonadeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FirstComposeAppTheme {
-                ScaffoldComponent(modifier = Modifier)
+                ScaffoldComponent(R.string.lemonade_making, modifier = Modifier) {
+                    LemonadeApp()
+                }
             }
         }
     }
@@ -37,7 +41,6 @@ class LemonadeActivity : ComponentActivity() {
 
 @Composable
 fun LemonadeApp() {
-
     var steps by remember { mutableStateOf(1) }
     var squeeze by remember { mutableStateOf((2..4).random()) }
     var squeezeMsgShow by remember { mutableStateOf(false) }
@@ -86,46 +89,16 @@ fun LemonadeSteps(modifier: Modifier, steps: Int, squeeze: Boolean, onClick: () 
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = specificLemonade.second)
+        Text(text = stringResource(id = specificLemonade.second))
     }
 }
 
-private val lemonadeMapping: (Int) -> Pair<Int, String> = {
+private val lemonadeMapping: (Int) -> Pair<Int, Int> = {
     when (it) {
-        1 -> Pair(R.drawable.lemon_tree, "Tap a lemon tree to select a lemon")
-        2 -> Pair(R.drawable.lemon_squeeze, "Keep tapping the lemon to squeeze it")
-        3 -> Pair(R.drawable.lemon_drink, "Tap the lemonade to drink it")
-        else -> Pair(R.drawable.lemon_restart, "Tap the empty glass to start again")
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ScaffoldComponent(
-    modifier: Modifier
-) {
-    Scaffold(modifier = modifier,
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    androidx.compose.material3.Text(
-                        text = "Lemonade",
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = androidx.compose.material3.MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = androidx.compose.material3.MaterialTheme.colorScheme.onPrimaryContainer,
-                    navigationIconContentColor = androidx.compose.material3.MaterialTheme.colorScheme.onPrimaryContainer,
-                    actionIconContentColor = androidx.compose.material3.MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            )
-
-        }, bottomBar = {
-
-        }
-    ) {
-        LemonadeApp()
+        1 -> Pair(R.drawable.lemon_tree, R.string.lemon_tree)
+        2 -> Pair(R.drawable.lemon_squeeze, R.string.lemon_squeeze)
+        3 -> Pair(R.drawable.lemon_drink, R.string.lemon_drink)
+        else -> Pair(R.drawable.lemon_restart, R.string.lemon_restart)
     }
 }
 

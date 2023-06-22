@@ -18,18 +18,18 @@
             android:exported="true"
             android:label="@string/title_activity_list"
             android:theme="@style/Theme.FirstComposeApp">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
             android:name=".CalculateTipActivity"
             android:exported="true"
             android:label="@string/title_activity_calculate_tip"
-            android:theme="@style/Theme.FirstComposeApp"></activity>
+            android:theme="@style/Theme.FirstComposeApp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter></activity>
         <activity
             android:name=".LemonadeActivity"
             android:exported="true"

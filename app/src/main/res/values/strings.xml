@@ -11,4 +11,14 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_calculate_tip">CalculateTipActivity</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="tip_amount">Tip Amount: $%.02f</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="tip_percentage">Tip Percentage</string>
+    <string name="round_trip_check">Do you want to round the tip?</string>
+    <string name="tip_calculator">Tip Calculator</string>
+    <string name="lemonade_making">Lemonade Existance</string>
+    <string name="lemon_tree">Tap a lemon tree to select a lemon</string>
+    <string name="lemon_squeeze">Keep tapping the lemon to squeeze it</string>
+    <string name="lemon_drink">Tap the lemonade to drink it</string>
+    <string name="lemon_restart">Tap the empty glass to start again</string>
 </resources>

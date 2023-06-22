@@ -13,12 +13,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aliazaz.composeapp.components.EditableTextView
+import com.aliazaz.composeapp.components.ScaffoldComponent
+import com.aliazaz.composeapp.components.SwitchComponent
 import com.aliazaz.composeapp.ui.theme.FirstComposeAppTheme
+import kotlin.math.ceil
 
 class CalculateTipActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +35,7 @@ class CalculateTipActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    CalculateTip()
+                    TipCalculatorWithScaffold()
                 }
             }
         }
@@ -39,14 +43,22 @@ class CalculateTipActivity : ComponentActivity() {
 }
 
 @Composable
+fun TipCalculatorWithScaffold() {
+    ScaffoldComponent(R.string.tip_calculator, modifier = Modifier) {
+        CalculateTip()
+    }
+}
+
+@Composable
 fun CalculateTip() {
     var amount by remember { mutableStateOf("") }
     var tip by remember { mutableStateOf("") }
+    var tipSwitchChecked by remember { mutableStateOf(false) }
 
     val resultAmount = amount.toDoubleOrNull() ?: 0.0
     val resultTip = tip.toDoubleOrNull() ?: 0.0
 
-    val resultantTip = tipCalculator(resultAmount, resultTip)
+    val resultantTip = tipCalculator(resultAmount, resultTip, tipSwitchChecked)
 
     Column(
         modifier = Modifier
@@ -55,41 +67,56 @@ fun CalculateTip() {
             .verticalScroll(rememberScrollState())
     ) {
         EditableTextView(
-            text = "Total Amount",
+            text = R.string.total_amount,
             value = amount,
             onValueChange = { amount = it },
             KeyboardOptions(keyboardType = KeyboardType.Number).copy(
                 imeAction = ImeAction.Next
-            )
+            ),
+            R.drawable.ic_money
         )
 
         Spacer(modifier = Modifier.height(5.dp))
 
         EditableTextView(
-            text = "Tip Percentage",
+            text = R.string.tip_percentage,
             value = tip,
             onValueChange = { tip = it },
-            KeyboardOptions(keyboardType = KeyboardType.Number)
+            KeyboardOptions(keyboardType = KeyboardType.Number),
+            null
+        )
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        SwitchComponent(
+            text = R.string.round_trip_check,
+            value = tipSwitchChecked,
+            onChange = { tipSwitchChecked = it },
+            modifier = Modifier
         )
 
         Spacer(modifier = Modifier.height(30.dp))
 
         Text(
-            text = "Tip Amount: $${String.format("%.02f", resultantTip)}",
+            text = stringResource(id = R.string.tip_amount, resultantTip),
             style = MaterialTheme.typography.h6
         )
     }
 
 }
 
-fun tipCalculator(no1: Double, no2: Double): Double {
-    return no1 / 100 * no2
-}
-
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview5() {
+fun TipCalculatorWithScaffoldPreview() {
     FirstComposeAppTheme {
-        CalculateTip()
+        TipCalculatorWithScaffold()
     }
+}
+
+/*
+* Calculate Tip
+* */
+private fun tipCalculator(no1: Double, no2: Double, tipSwitchChecked: Boolean): Double {
+    val resTip = no1 / 100 * no2
+    return if (tipSwitchChecked) ceil(resTip) else resTip
 }
