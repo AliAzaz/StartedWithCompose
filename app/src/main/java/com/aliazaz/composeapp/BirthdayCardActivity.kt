@@ -46,17 +46,22 @@ class BirthdayCardActivity : ComponentActivity() {
 
 @Composable
 fun BirthdayCard(birthdayCardModel: BirthdayCardModel) {
-    Box(modifier = Modifier.padding(0.dp)) {
+    Box(
+        modifier = Modifier
+            .padding(0.dp)
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ic_launcher_background),
             contentDescription = null,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             alpha = 0.5F
         )
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentSize(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "${birthdayCardModel.message} ${birthdayCardModel.birthdayPersonName}!",

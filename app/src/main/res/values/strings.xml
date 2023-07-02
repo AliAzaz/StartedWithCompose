@@ -11,4 +11,5 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_calculate_tip">CalculateTipActivity</string>
     <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_empty_compose">EmptyComposeActivity</string>
 </resources>
