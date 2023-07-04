@@ -18,9 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.aliazaz.composeapp.components.CircleButtonComponent
 import com.aliazaz.composeapp.model.ArtShowCaseModel
 import com.aliazaz.composeapp.ui.theme.FirstComposeAppTheme
+import com.aliazaz.composeapp.viewmodel.ArtWorkShowcaseViewModel
 
 class ArtWorkShowcaseActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +48,10 @@ fun ArtWorkShowcaseApp() {
 }
 
 @Composable
-fun ArtWorkShowCase() {
-
-    var currentState by remember { mutableStateOf(0) }
+fun ArtWorkShowCase(
+    artWorkShowcaseViewModel: ArtWorkShowcaseViewModel = viewModel()
+) {
+    val currentState by artWorkShowcaseViewModel.artWorkItemIndex.collectAsState()
 
     val artShowCaseModel =
         arrayListOf(
@@ -86,10 +89,10 @@ fun ArtWorkShowCase() {
             currentState,
             artShowCaseModel.size - 1,
             {
-                currentState--
+                artWorkShowcaseViewModel.previousClick()
             },
             {
-                currentState++
+                artWorkShowcaseViewModel.nextClick()
             }
         )
     }
