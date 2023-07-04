@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
@@ -18,9 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aliazaz.composeapp.ui.theme.FirstComposeAppTheme
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class ListActivity : ComponentActivity() {
@@ -52,7 +55,6 @@ fun ListApp() {
         Pair(R.drawable.lemon_drink, "Tap the lemonade to drink it"),
         Pair(R.drawable.lemon_restart, "Tap the empty glass to start again")
     )
-
     val lazyListState = rememberLazyListState()
     val showScrollToTopButton by remember {
         derivedStateOf {
@@ -61,8 +63,18 @@ fun ListApp() {
     }
     val coroutineScope = rememberCoroutineScope()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    ListView(lemonadeMapping, lazyListState, showScrollToTopButton, coroutineScope)
 
+}
+
+@Composable
+fun ListView(
+    lemonadeMapping: ArrayList<Pair<Int, String>>,
+    lazyListState: LazyListState,
+    showScrollToTopButton: Boolean,
+    coroutineScope: CoroutineScope
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier,
             verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -79,7 +91,7 @@ fun ListApp() {
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(5.dp)
-                .size(80.dp)
+                .size(60.dp)
                 .clickable {
                     coroutineScope.launch {
                         lazyListState.animateScrollToItem(
@@ -89,27 +101,32 @@ fun ListApp() {
                 }
         )
     }
-
 }
 
 @Composable
 fun ItemView(itemData: Pair<Int, String>) {
-    Card {
-        Column {
+    Card(
+        modifier = Modifier
+            .fillMaxSize()
+            .height(130.dp)
+    ) {
+        Row {
             Image(
                 painter = painterResource(itemData.first),
                 contentDescription = itemData.first.toString(),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(190.dp),
+                    .width(130.dp)
+                    .fillMaxHeight()
+                    .padding(10.dp),
                 contentScale = ContentScale.Inside
             )
             Text(
                 text = itemData.second,
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+                    .align(Alignment.CenterVertically)
                     .padding(5.dp),
-                style = MaterialTheme.typography.body1
+                style = MaterialTheme.typography.body1,
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -129,7 +146,7 @@ fun ScrollToTopButton(flag: Boolean, modifier: Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview6() {
+fun ListAppPreview() {
     FirstComposeAppTheme {
         ListApp()
     }
