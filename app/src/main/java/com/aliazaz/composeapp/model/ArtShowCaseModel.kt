@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 
 data class ArtShowCaseModel(
     @DrawableRes var artImage: Int,
-    @StringRes var artName: Int,
-    @StringRes var artistName: Int,
-    @StringRes var artPublishedYear: Int
+     var artName: String,
+     var artistName: String,
+     var artPublishedYear: String
 )

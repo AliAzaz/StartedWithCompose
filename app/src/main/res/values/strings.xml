@@ -23,4 +23,11 @@
     <string name="lemon_drink">Tap the lemonade to drink it</string>
     <string name="lemon_restart">Tap the empty glass to start again</string>
     <string name="title_activity_art_work_showcase">ArtWorkShowcaseActivity</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="year_1954">1954</string>
+    <string name="year_1955">1955</string>
+    <string name="year_1956">1956</string>
+    <string name="year_1957">1957</string>
 </resources>
