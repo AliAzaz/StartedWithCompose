@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +38,7 @@ fun ArtWorkShowcaseApp() {
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .wrapContentSize()
-        ,
+            .wrapContentSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         ArtWorkShowCase()
@@ -51,7 +51,7 @@ fun ArtWorkShowCase() {
     var currentState by remember { mutableStateOf(1) }
 
     var artShowCaseModel = ArtShowCaseModel(
-        artImage = R.drawable.lemon_tree,
+        artImage = R.drawable.pic01,
         artName = R.string.lemon_tree,
         artistName = R.string.app_name,
         artPublishedYear = R.string.roll
@@ -68,23 +68,27 @@ fun ArtWorkShowCase() {
 fun ArtWorkContentPopulation(artShowCaseModel: ArtShowCaseModel) {
 
     Surface(
-        modifier = Modifier.padding(10.dp),
-        border = BorderStroke(3.dp, Color.Gray),
-        shadowElevation = 3.dp
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(400.dp)
+            .padding(20.dp),
+        border = BorderStroke(1.dp, Color.LightGray),
+        shadowElevation = 10.dp,
     ) {
         Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .background(Color.White)
-                .padding(20.dp)
         ) {
             Image(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(30.dp),
+                contentScale = ContentScale.FillHeight,
                 painter = painterResource(id = artShowCaseModel.artImage),
                 contentDescription = stringResource(id = artShowCaseModel.artName)
             )
         }
-
-
-
     }
 
 }
